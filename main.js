@@ -52,8 +52,9 @@ function respostaSelecionada(opcaoSelecionada) {
     mostraPerguntas();
 }
 
+
 function mostraResultado() {
-    caixaPerguntas.textContent = "Se fosse possível ...";
+    caixaPerguntas.textContent = `Se fosse possível $(nome)...`;
     textoResultado.textContent = historiaFinal;
     caixaAlternativas.textContent = " ";
     caixaResultado.classList.add("mostrar");
@@ -65,7 +66,14 @@ function jogaNovamente(){
     atual = 0;
     historiaFinal = "";
     caixaResultado.classList.remove("mostrar");
+    substituiNome();
     mostraPerguntas();
+}
+
+function substituiNome(){
+    for (const pergunta of pergunta){
+        pergunta.enunciado = pergunta.enunciado.replace(/você/g,nome)
+    }
 }
 
 mostraPerguntas();
