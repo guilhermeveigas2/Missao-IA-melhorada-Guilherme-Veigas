@@ -1,4 +1,4 @@
-const nomes = ["Guilherme", "Mylena", "Luan", "Meire"];
+const nomes = ["Guilherme", "Mylena", "Luan", "Meire", "Rafael"];
 
 
 export function aleatorio(lista){
