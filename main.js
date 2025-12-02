@@ -1,19 +1,12 @@
-import { aleatorio } from "./aleatorio.js";
+import { aleatorio, nome } from "./aleatorio.js";
 import { perguntas } from "./perguntas.js";
 
-const caixapPrincipal = document.querySelector(".caixa-principal");
+const caixaPrincipal = document.querySelector(".caixa-principal");
 const caixaPerguntas = document.querySelector(".caixa-perguntas");
 const caixaAlternativas = document.querySelector(".caixa-alternativas");
 const caixaResultado = document.querySelector(".caixa-resultado");
 const textoResultado = document.querySelector(".texto-resultado");
-const botaoJogarNovamente = document.querySelector(".novamente-btn");
-
-
-
-
-
-
-
+const botaoJogarNovamnete = document.querySelector(".novamente-btn");
 
 
 
@@ -21,9 +14,9 @@ let atual = 0;
 let perguntaAtual;
 let historiaFinal = " ";
 
-function mostraPerguntas() {
+function mostraPergunta(){
 
-    if (atual >= perguntas.length) {
+    if (atual >= perguntas.length){
         mostraResultado();
         return;
     }
@@ -34,46 +27,43 @@ function mostraPerguntas() {
     mostraAlternativas();
 }
 
-function mostraAlternativas() {
-    for (const alternativa of perguntaAtual.alternativas) {
+function mostraAlternativas(){
+    for (const alternativa of perguntaAtual.alternativas){
         const botaoAlternativas = document.createElement("button");
         botaoAlternativas.textContent = alternativa.texto;
         botaoAlternativas.addEventListener("click", () => respostaSelecionada(alternativa));
         caixaAlternativas.appendChild(botaoAlternativas);
-    }
+    } 
 }
 
-
-function respostaSelecionada(opcaoSelecionada) {
+function respostaSelecionada(opcaoSelecionada){
     const afirmacoes = aleatorio(opcaoSelecionada.afirmacao);
     historiaFinal += afirmacoes + " ";
     atual++;
-    mostraPerguntas();
+    mostraPergunta();
 }
 
-
-function mostraResultado() {
-    caixaPerguntas.textContent = `Se fosse possível $(nome)...`;
+function mostraResultado(){
+    caixaPerguntas.textContent = `Avaliando suas respostas, ${nome}, identificamos as características que definem o seu perfil profissional...`;
     textoResultado.textContent = historiaFinal;
     caixaAlternativas.textContent = " ";
     caixaResultado.classList.add("mostrar");
-    botaoJogarNovamente.addEventListener("click", jogaNovamente);
-
+    botaoJogarNovamnete.addEventListener("click", jogaNovamente);
 }
 
 function jogaNovamente(){
     atual = 0;
-    historiaFinal = "";
+    historiaFinal = " ";
     caixaResultado.classList.remove("mostrar");
     substituiNome();
-    mostraPerguntas();
+    mostraPergunta();
 }
 
 function substituiNome(){
-    for (const pergunta of pergunta){
-        pergunta.enunciado = pergunta.enunciado.replace(/você/g,nome)
+    for (const pergunta of perguntas){
+        pergunta.enunciado = pergunta.enunciado.replace(/você/g, nome);
     }
 }
 
-mostraPerguntas();
-
+substituiNome();
+mostraPergunta();
